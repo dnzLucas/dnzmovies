@@ -2,25 +2,63 @@
   import { ref, onMounted } from 'vue';
   import api from '@/plugins/axios';
 
+
+  const movies = ref([]);
+  const listMovies = async(genreId) => {
+    const response = await api.get('discover/movie', {
+      params: {
+          with_genres: genreId,
+          language: 'pt-BR'
+      }
+    });
+    movies.value = response.data.results
+  }
+
   const genres = ref([]);
 
   onMounted(async () => {
     const response = await api.get('genre/movie/list?language=pt-BR');
     genres.value = response.data.genres;
   });
+
 </script>
 <template>
+<div class="container">
   <div>
     <h1>Gêneros de filmes</h1>
     <ul class="genre-list">
-      <li v-for="genre in genres" :key="genre.id">
+      <li v-for="genre in genres" :key="genre.id" @click="listMovies(genre.id)">
         {{ genre.name }}
       </li>
     </ul>
   </div>
+  <div class="movie-list">
+  <div v-for="movie in movies" :key="movie.id" class="movie-card">
+    
+    <img
+      :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+      :alt="movie.title"
+    />
+    <div class="movie-details">
+      <p class="movie-title">{{ movie.title }}</p>
+      <p class="movie-release-date">{{ movie.release_date }}</p>
+      <p class="movie-genres">{{ movie.genre_ids }}</p>
+    </div>
+    
+  </div>
+</div>
+
+</div>
 </template>
 
 <style scoped>
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .genre-list {
   display: flex;
   justify-content: center;
@@ -42,4 +80,29 @@
   background-color: #4e9e5f;
   box-shadow: 0 0 0.5rem #387250;
 }
+
+.movie-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.movie-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 0.3rem #ccc;
+  min-height: 400px;
+}
+
+.movie-card img{
+  width: 100%;
+  border-radius: 1rem;
+}
+
 </style>

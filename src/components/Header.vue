@@ -9,7 +9,6 @@ import { RouterLink, RouterView } from 'vue-router'
       <router-link to="/filmes">Filmes</router-link>
       <router-link to="/tv">Programas de TV</router-link>
     </nav>
-    <router-view />
   </div>
 </template>
 

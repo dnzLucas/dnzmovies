@@ -2,6 +2,17 @@
   import { ref, onMounted } from 'vue';
   import api from '@/plugins/axios';
 
+  const programs = ref([])
+  const listPrograms = async(genreId) => {
+    const response = api.get('discover/tv', {
+      params:{
+        with_genres: genreId,
+        language: 'pt-BR'
+      }
+  })
+}
+
+
   const genres = ref([]);
 
     onMounted(async () => {
@@ -19,6 +30,13 @@
       </li>
     </ul>
   </div>
+
+  <div class="program-list">
+    <div v-for="program in programs" :key="genre.id" @click="listPrograms(genre.id)">
+      {{ genre.name }}
+    </div>
+  </div>
+
 </template>
 
 <style scoped>
