@@ -53,6 +53,10 @@
 
 <style scoped>
 
+h1{
+  text-align: center;
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -73,6 +77,7 @@
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   color: #fff;
+  cursor: pointer;
 }
 
 .genre-item:hover {
@@ -82,11 +87,12 @@
 }
 
 .movie-list{
+  padding: 0 5vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
-  align-items: center;
   gap: 1rem;
+;
 }
 
 .movie-card{
@@ -96,12 +102,12 @@
   width: 250px;
   padding: 1rem;
   border-radius: 0.8rem;
-  box-shadow: 0 0 0.3rem #ccc;
   min-height: 400px;
 }
 
 .movie-card img{
   width: 100%;
+  min-width: 10vw;
   border-radius: 1rem;
 }
 

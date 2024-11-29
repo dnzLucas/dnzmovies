@@ -18,9 +18,10 @@ import { RouterLink, RouterView } from 'vue-router'
     justify-content: flex-start;
     margin-bottom: 1rem;
     column-gap: 2rem;
-    background-color: rgb(23, 41, 22);
+    background-color: rgb(0, 0, 0);
     height: 100px;
     padding: 0 20px;
+    font-weight: 400;
   }
 
     nav a {

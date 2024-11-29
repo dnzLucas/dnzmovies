@@ -37,12 +37,12 @@ onMounted(async () => {
 
   <div class="program-list">
     <div v-for="program in programs" :key="program.id">
-      <img
+      <img class="program-img"
       :src="`https://image.tmdb.org/t/p/w500${program.poster_path}`"
       :alt="program.title"
     />
     <div class="program-details">
-      <p class="program-title">{{ program.title }}</p>
+      <p class="program-title">{{ program.name }}</p>
       <p class="program-release-date">{{ program.release_date }}</p>
       <p class="program-genres">{{ program.genre_ids }}</p>
     </div>
@@ -95,7 +95,6 @@ onMounted(async () => {
   width: 250px;
   padding: 1rem;
   border-radius: 0.8rem;
-  box-shadow: 0 0 0.3rem #ccc;
   min-height: 400px;
 }
 
