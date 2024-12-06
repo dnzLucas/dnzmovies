@@ -1,10 +1,14 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import api from '@/plugins/axios';
+  import Loading from 'vue-loading-overlay';
 
+  const isLoading = ref(false);
 
+  
   const movies = ref([]);
   const listMovies = async(genreId) => {
+    isLoading.value = true;
     const response = await api.get('discover/movie', {
       params: {
           with_genres: genreId,
@@ -12,7 +16,11 @@
       }
     });
     movies.value = response.data.results
+    isLoading.value = false;
+
   }
+
+
 
   const genres = ref([]);
 
@@ -20,6 +28,8 @@
     const response = await api.get('genre/movie/list?language=pt-BR');
     genres.value = response.data.genres;
   });
+
+
 
 </script>
 <template>
@@ -31,6 +41,7 @@
         {{ genre.name }}
       </li>
     </ul>
+      <loading v-model:active="isLoading" is-full-page loader="dots" color="white" background-color="black" />
   </div>
   <div class="movie-list">
   <div v-for="movie in movies" :key="movie.id" class="movie-card">
@@ -53,62 +64,5 @@
 
 <style scoped>
 
-h1{
-  text-align: center;
-}
-
-.container{
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.genre-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  list-style: none;
-  padding: 0;
-}
-
-.genre-item {
-  background-color: #387250;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  color: #fff;
-  cursor: pointer;
-}
-
-.genre-item:hover {
-  cursor: pointer;
-  background-color: #4e9e5f;
-  box-shadow: 0 0 0.5rem #387250;
-}
-
-.movie-list{
-  padding: 0 5vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  gap: 1rem;
-;
-}
-
-.movie-card{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  min-height: 400px;
-}
-
-.movie-card img{
-  width: 100%;
-  min-width: 10vw;
-  border-radius: 1rem;
-}
-
+@import '../assets/Sass/_movies.scss'
 </style>

@@ -1,9 +1,20 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import api from "@/plugins/axios";
+import Loading from 'vue-loading-overlay';
 
+const getGenreName = (id) => genres.value.find((genre) => genre.id === id).name
+
+function getGenreName(id) {
+    const genero = genres.value.find((genre) => genre.id === id);
+    return genero.name;
+  }
+
+
+const isLoading = ref(false);
 const programs = ref([]);
 const listPrograms = async (genreId) => {
+  isLoading.value = true;
   const response = await api.get("discover/tv", {
     params: {
       with_genres: genreId,
@@ -11,6 +22,8 @@ const listPrograms = async (genreId) => {
     },
   });
   programs.value = response.data.results;
+  isLoading.value = false;
+
 };
 
 const genres = ref([]);
@@ -33,10 +46,12 @@ onMounted(async () => {
         {{ genre.name }}
       </li>
     </ul>
+    <loading v-model:active="isLoading" is-full-page loader="dots" color="white" background-color="black" />
+
   </div>
 
   <div class="program-list">
-    <div v-for="program in programs" :key="program.id">
+    <div v-for="program in programs" :key="program.id" class="program-card" >
       <img class="program-img"
       :src="`https://image.tmdb.org/t/p/w500${program.poster_path}`"
       :alt="program.title"
@@ -44,7 +59,15 @@ onMounted(async () => {
     <div class="program-details">
       <p class="program-title">{{ program.name }}</p>
       <p class="program-release-date">{{ program.release_date }}</p>
-      <p class="program-genres">{{ program.genre_ids }}</p>
+      <p class="movie-genres">
+  <span
+    v-for="genre_id in programs.genre_ids"
+    :key="genre_id"
+    @click="listPrograms(genre_id)"
+  >
+    {{ getGenreName(genre_id) }} 
+  </span>
+</p>
     </div>
     
     </div>
@@ -52,55 +75,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.container{
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.genre-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  list-style: none;
-  padding: 0;
-}
-
-.genre-item {
-  background-color: #387250;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  color: #fff;
-}
-
-.genre-item:hover {
-  cursor: pointer;
-  background-color: #4e9e5f;
-  box-shadow: 0 0 0.5rem #387250;
-}
-
-.program-list{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-items: center;
-  gap: 1rem;
-}
-
-.program-card{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  min-height: 400px;
-}
-
-.program-card img{
-  width: 100%;
-  border-radius: 1rem;
-}
+@import "../assets/Sass/_tv.scss";
 
 </style>
