@@ -3,12 +3,12 @@ import { ref, onMounted } from "vue";
 import api from "@/plugins/axios";
 import Loading from 'vue-loading-overlay';
 
-const getGenreName = (id) => genres.value.find((genre) => genre.id === id).name
 
-function getGenreName(id) {
-    const genero = genres.value.find((genre) => genre.id === id);
-    return genero.name;
-  }
+
+// function getGenreName(id) {
+//     const genero = genres.value.find((genre) => genre.id === id);
+//     return genero.name;
+//   }
 
 
 const isLoading = ref(false);
@@ -59,7 +59,7 @@ onMounted(async () => {
     <div class="program-details">
       <p class="program-title">{{ program.name }}</p>
       <p class="program-release-date">{{ program.release_date }}</p>
-      <p class="movie-genres">
+      <!-- <p class="movie-genres">
   <span
     v-for="genre_id in programs.genre_ids"
     :key="genre_id"
@@ -67,7 +67,7 @@ onMounted(async () => {
   >
     {{ getGenreName(genre_id) }} 
   </span>
-</p>
+</p> -->
     </div>
     
     </div>

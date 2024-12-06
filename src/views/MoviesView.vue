@@ -2,8 +2,14 @@
   import { ref, onMounted } from 'vue';
   import api from '@/plugins/axios';
   import Loading from 'vue-loading-overlay';
-
+  import { useGenreStore } from '@/stores/genre';
+  const genreStore = useGenreStore();
   const isLoading = ref(false);
+
+  // function getGenreName(id){
+  //   const genero = genres.value.find((genre) => genre.id === id);
+  //   return genero.name;
+  // }
 
   
   const movies = ref([]);
@@ -25,21 +31,32 @@
   const genres = ref([]);
 
   onMounted(async () => {
-    const response = await api.get('genre/movie/list?language=pt-BR');
-    genres.value = response.data.genres;
+    // const response = await api.get('genre/movie/list?language=pt-BR');
+    // genres.value = response.data.genres;
+    isLoading.value = true;
+  await genreStore.getAllGenres('movie');
+  isLoading.value = false;
   });
 
-
-
+  const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).replace('.', '');
+  };
 </script>
 <template>
+  
 <div class="container">
+  
   <div>
     <h1>Gêneros de filmes</h1>
     <ul class="genre-list">
-      <li v-for="genre in genres" :key="genre.id" @click="listMovies(genre.id)">
-        {{ genre.name }}
-      </li>
+      <li v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item"
+>
+   {{ genre.name }} 
+</li>
     </ul>
       <loading v-model:active="isLoading" is-full-page loader="dots" color="white" background-color="black" />
   </div>
@@ -52,8 +69,16 @@
     />
     <div class="movie-details">
       <p class="movie-title">{{ movie.title }}</p>
-      <p class="movie-release-date">{{ movie.release_date }}</p>
-      <p class="movie-genres">{{ movie.genre_ids }}</p>
+      <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>      
+      <!-- <p class="movie-genres">
+        <span
+  v-for="genre_id in movie.genre_ids"
+  :key="genre_id"
+  @click="listMovies(genre_id)"
+>
+  {{ genreStore.getGenreName(genre_id) }}
+</span>
+</p> -->
     </div>
     
   </div>
@@ -64,5 +89,5 @@
 
 <style scoped>
 
-@import '../assets/Sass/_movies.scss'
+  @import '../assets/Sass/_movies.scss'
 </style>
