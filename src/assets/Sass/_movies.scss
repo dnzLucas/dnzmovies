@@ -50,19 +50,63 @@
     gap: 1rem;
   }
   
-  .movie-card{
+  .movie-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 250px;
-    padding: 1rem;
     border-radius: 0.8rem;
-    min-height: 400px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.7);
   }
   
-  .movie-card img{
+  .movie-card img {
     width: 100%;
     min-width: 10vw;
     border-radius: 1rem;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 1;
   }
   
+  .movie-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+    z-index: 2;
+  }
+  
+  .movie-card:hover::after {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .movie-details {
+    padding: 1rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 1rem 1rem;
+    transform: translateY(200px);
+    transition: transform 0.3s ease;
+    z-index: 3; 
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+  
+  .movie-card:hover .movie-details {
+    opacity: 1;
+    transform: translateY(-50px);
+  }
+
+  .movie-card:hover img {
+    transform: scale(1.05);
+  }
+
+
