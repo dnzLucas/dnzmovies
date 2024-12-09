@@ -5,6 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <div>
     <nav>
+      <img class="logo" src="../assets/images/image.png" alt="">
       <router-link to="/">Home</router-link>
       <router-link to="/filmes">Filmes</router-link>
       <router-link to="/tv">Programas de TV</router-link>
@@ -16,6 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
   nav {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     margin-bottom: 1rem;
     column-gap: 2rem;
     background-color: rgb(0, 0, 0);
@@ -30,6 +32,11 @@ import { RouterLink, RouterView } from 'vue-router'
         font-size: 1.5rem;
         display: flex;
         align-items: center;
+    }
+
+    img{
+        width: 70px;
+        height: 70px;
     }
 
 </style>

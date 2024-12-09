@@ -3,8 +3,13 @@ import { ref, onMounted } from "vue";
 import api from "@/plugins/axios";
 import Loading from "vue-loading-overlay";
 import { useGenreStore } from "@/stores/genre";
+import { useRouter } from 'vue-router';
+
 const genreStore = useGenreStore();
 const isLoading = ref(false);
+
+const router = useRouter();
+
 
 // function getGenreName(id){
 //   const genero = genres.value.find((genre) => genre.id === id);
@@ -43,6 +48,11 @@ const formatDate = (date) => {
     })
     .replace(".", "");
 };
+
+
+function openMovie(movieId) {
+  router.push({ name: 'MovieDetails', params: { movieId } });
+}
 </script>
 <template>
   <div class="container">
@@ -67,7 +77,9 @@ const formatDate = (date) => {
       />
     </div>
     <div class="movie-list">
-      <div v-for="movie in movies" :key="movie.id" class="movie-card">
+      <div v-for="movie in movies" :key="movie.id" class="movie-card"
+      @click="openMovie(movie.id)"
+      >
         <img
           :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
           :alt="movie.title"
@@ -83,5 +95,5 @@ const formatDate = (date) => {
 </template>
 
 <style scoped>
-@import "../assets/Sass/_movies.scss";
+@import "../assets/Sass/movie/_movies.scss";
 </style>

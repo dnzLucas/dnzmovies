@@ -1,0 +1,41 @@
+.content {
+    display: flex;
+    padding: 0 10vw;
+    gap: 2rem;
+
+
+    .movie-images {
+        position: relative;
+        width: 40vw;
+
+        .movie-poster {
+            width: 10vw;
+            position: absolute;
+            top: 7vh;
+            /* Centraliza verticalmente */
+            left: 3vw;
+            z-index: 9999;
+        }
+
+        .movie-backdrop {
+            width: 35vw;
+            object-fit: cover;
+            filter: blur(3px);
+        }
+    }
+
+    .details {
+        display: flex;
+        flex-direction: column;
+        width: 50vw;
+
+        .movie-overview{
+            
+        }
+    }
+
+}
+
+.companies img {
+    background-color: rgb(255, 255, 255);
+}
