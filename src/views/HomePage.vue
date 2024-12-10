@@ -5,10 +5,10 @@
       <div class="carousel-track" :style="trackStyle">
         <div v-for="movie in movies" :key="movie.id" class="carousel-item">
           <img
-            :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`"
+            :src="`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`"
             :alt="movie.title"
           />
-          <div class="pelicula"></div>
+          <!-- <div class="pelicula"></div> -->
           <div class="movie-info">
             <p class="movie-title">{{ movie.title }}</p>
             <p class="overview">{{ movie.overview }}</p>
@@ -141,7 +141,7 @@ onMounted(() => {
 }
 
 img{
-  width: 70vw;
+  width: 100%;
   height: 60vh;
   object-fit: cover;
 }

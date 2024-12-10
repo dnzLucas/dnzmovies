@@ -18,21 +18,21 @@ onMounted(async () => {
 <template>
   <div class="main">
     <div class="content">
-      <div class="movie-images">
-        <img
-          :src="`https://image.tmdb.org/t/p/w185${movieStore.currentMovie.poster_path}`"
-          :alt="movieStore.currentMovie.title"
-          class="movie-poster"
-        />
+      <div class="pelicula"></div>
 
         <img
-          :src="`https://image.tmdb.org/t/p/w185${movieStore.currentMovie.backdrop_path}`"
+          :src="`https://image.tmdb.org/t/p/original${movieStore.currentMovie.backdrop_path}`"
           :alt="movieStore.currentMovie.title"
           class="movie-backdrop"
         />
-      </div>
+
 
       <div class="details">
+        <img
+          :src="`https://image.tmdb.org/t/p/original${movieStore.currentMovie.poster_path}`"
+          :alt="movieStore.currentMovie.title"
+          class="movie-poster"
+        />
         <h1>{{ movieStore.currentMovie.title }}</h1>
         <h3>Sinopse</h3>
         <p class="movie-overview" >{{ movieStore.currentMovie.overview }}</p>

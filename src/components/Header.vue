@@ -24,6 +24,8 @@ import { RouterLink, RouterView } from 'vue-router'
     height: 100px;
     padding: 0 20px;
     font-weight: 400;
+    z-index: 9999;
+    position: relative;
   }
 
     nav a {
