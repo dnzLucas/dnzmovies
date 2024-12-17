@@ -58,7 +58,7 @@ onMounted(async () => {
 
       <div class="details">
         <div class="first-side">
-          <h3 class="overview-title">Sinopse</h3>
+          <h3 class="details-text">Sinopse</h3>
           <p class="movie-overview">{{ movieStore.currentMovie.overview }}</p>
           <p v-if="movieStore.currentMovie.budget > 0">
             Orçamento: ${{ movieStore.currentMovie.budget }}
@@ -66,6 +66,7 @@ onMounted(async () => {
           <p>Avaliação: {{ movieStore.currentMovie.vote_average }}</p>
         </div>
         <div class="second-side">
+          <h3 class="details-text">Detalhes</h3>
           <p>Data de lançamento: {{ movieStore.currentMovie.release_date }}</p>
           <p>Duração: {{ movieStore.currentMovie.runtime }} minutos</p>
           <p>Idioma original: {{ movieStore.currentMovie.original_language }}</p>
@@ -101,15 +102,19 @@ onMounted(async () => {
 
 .trailers {
   margin-top: 2rem;
+  text-align: center;
 }
 
 .trailer-list {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .trailer-item {
   margin-bottom: 1rem;
+  width: 500px;
 }
 
 iframe {

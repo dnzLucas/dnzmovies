@@ -1,30 +1,7 @@
-<template>
-  <div class="carousel">
-    <button @click="prevSlide" class="control prev">❮</button>
-    <div class="carousel-wrapper">
-      <div class="carousel-track" :style="trackStyle">
-        <div v-for="movie in movies" :key="movie.id" class="carousel-item">
-          <img
-            :src="`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`"
-            :alt="movie.title"
-          />
-          <!-- <div class="pelicula"></div> -->
-          <div class="movie-info">
-            <p class="movie-title">{{ movie.title }}</p>
-            <p class="overview">{{ movie.overview }}</p>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <button @click="nextSlide" class="control next">❯</button>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import api from "@/plugins/axios";
+import {useRouter } from 'vue-router';
 
 const movies = ref([]);
 const currentIndex = ref(0);
@@ -42,8 +19,7 @@ const trackStyle = computed(() => ({
 }));
 
 const nextSlide = () => {
-  currentIndex.value =
-    (currentIndex.value + 1) % movies.value.length; // Vai para o próximo slide
+  currentIndex.value = (currentIndex.value + 1) % movies.value.length; // Vai para o próximo slide
 };
 
 const prevSlide = () => {
@@ -51,12 +27,49 @@ const prevSlide = () => {
     (currentIndex.value - 1 + movies.value.length) % movies.value.length; // Vai para o slide anterior
 };
 
-onMounted(() => {
+onMounted((async) => {
   getPopularMovies();
 });
 </script>
+<template>
+  <h1>DNZMOVIES</h1>
+  <div class="carousel">
+    <button @click="prevSlide" class="control prev">❮</button>
+    <div class="carousel-wrapper">
+      <div class="carousel-track" :style="trackStyle">
+        <div v-for="movie in movies" :key="movie.id" class="carousel-item">
+          <img
+            :src="`http://image.tmdb.org/t/p/original/${movie.backdrop_path}`"
+            :alt="movie.title"
+          />
+          <!-- <div class="pelicula"></div> -->
+          <div class="movie-info">
+            <p class="movie-title">{{ movie.title }}</p>
+            <p class="overview">{{ movie.overview }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button @click="nextSlide" class="control next">❯</button>
+  </div>
+
+  <div class="movie-list">
+      <div v-for="movie in movies" :key="movie.id" class="movie-card" @click="openMovie(movie.id)">
+        <img
+          :src="`http://image.tmdb.org/t/p/original/${movie.poster_path}`"
+          :alt="movie.title"
+        />
+
+      </div>
+    </div>
+      
+  
+</template>
 
 <style scoped>
+
+@import "../assets/Sass/_homepage.scss";
+
 .carousel {
   position: relative;
   width: 80%;
@@ -88,13 +101,13 @@ onMounted(() => {
   text-align: start;
 }
 
-.carousel-item p{
+.carousel-item p {
   bottom: 90px;
   font-size: 3em;
   font-weight: 600;
 }
 
-.carousel-item .overview{
+.carousel-item .overview {
   bottom: 50px;
   font-size: 1.1em;
   width: 50vw;
@@ -104,7 +117,7 @@ onMounted(() => {
   text-align: start;
 }
 
-.carousel-item .movie-release-date{
+.carousel-item .movie-release-date {
   bottom: 0;
   right: 0;
   font-size: 1.5em;
@@ -140,7 +153,7 @@ onMounted(() => {
   font-size: 1.2rem;
 }
 
-img{
+img {
   width: 100%;
   height: 60vh;
   object-fit: cover;
@@ -149,8 +162,8 @@ img{
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 50%;  /* Alinha verticalmente no meio */
-  left: 50%;  /* Alinha horizontalmente no meio */
+  top: 50%; /* Alinha verticalmente no meio */
+  left: 50%; /* Alinha horizontalmente no meio */
   transform: translate(-50%, -50%); /* Centraliza perfeitamente */
   background: rgba(0, 0, 0, 0.5); /* Cor semitransparente */
   padding: 10px 20px;
@@ -160,5 +173,4 @@ img{
   font-weight: bold;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar a película */
 }
-
 </style>
