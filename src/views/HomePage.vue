@@ -53,6 +53,10 @@ onMounted((async) => {
     <button @click="nextSlide" class="control next">❯</button>
   </div>
 
+  <div class="tex-area">
+    
+  </div>
+
   <div class="movie-list">
       <div v-for="movie in movies" :key="movie.id" class="movie-card" @click="openMovie(movie.id)">
         <img
@@ -62,8 +66,7 @@ onMounted((async) => {
 
       </div>
     </div>
-      
-  
+        
 </template>
 
 <style scoped>
