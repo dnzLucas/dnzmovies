@@ -53,10 +53,10 @@ h1{
 }
 
 .program-list{
-  padding: 0 5vw;
+  padding: 0 5vw 3vw 5vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: center;
   gap: 1rem;
   position: relative;
 }

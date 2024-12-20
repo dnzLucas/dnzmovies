@@ -6,7 +6,7 @@
       <router-link class="link" to="/filmes">Filmes</router-link>
       <router-link class="link" to="/tv">Programas de TV</router-link>
     </div>
-    <p>
+    <p class="madeBy">
       Made by <a href="https://github.com/dnzlucas" target="_blank">dnzlucas</a>
     </p>
   </div>

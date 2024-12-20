@@ -15,7 +15,7 @@
             padding: 20px 0 0 0;
 
             .movie-poster {
-                width: 15vw;
+                width: 300px;
                 position: relative;
                 top: 0;
                 left: 50%;
@@ -60,30 +60,38 @@
             display: flex;
             justify-content: start;
             text-align: start;
-            gap: 10rem;
+            gap: 5rem;
             .details-text{
                 font-size: 2em;
             }
 
             .movie-overview{
                 font-size: 1.2em;
-                width: 10;
+                width: 70vw;
 
             }
+
+            .first-side{
+                display: flex;
+                flex-direction: column;
+            }
+
             .second-side{
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
                 font-size: 1.2em;
-                text-align: start;
-                width: 50%;
+                text-align: center;
+                width: 100%;
+                align-items: center;
 
                 *:not(:first-child){
-                    background-color: #5C406E;
+                    background-color: #000000;
                     color: rgb(255, 255, 255);
                     border-radius: 10px;
-                    max-width: 200px;
+                    min-width: 20vw;
                     padding: 10px;
+                    border: 1px solid #6A1B9A;
                 }
             }
             .detail-title{
@@ -101,8 +109,28 @@
 
 
 
+
 }
 
 .companies img {
     background-color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 1430px) {
+    .movie-poster{
+        width: 300px;
+    }
+    .first-side{
+        align-items: center;
+        text-align: center;
+    }
+    .details{
+        flex-direction: column-reverse;
+    }
+
+    iframe{
+        width: 100%;
+        max-width: 500px;
+        height: 315px;
+    }
 }

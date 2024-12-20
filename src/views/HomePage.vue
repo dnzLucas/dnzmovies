@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import api from "@/plugins/axios";
 import {useRouter } from 'vue-router';
+import cards from "@/components/homepage/card.vue";
 
 const movies = ref([]);
 const currentIndex = ref(0);
@@ -53,19 +54,11 @@ onMounted((async) => {
     <button @click="nextSlide" class="control next">❯</button>
   </div>
 
-  <div class="tex-area">
-    
+  <div class="text-area">
+    <h2>Navegue por categoria</h2>
+    <cards/>
   </div>
 
-  <div class="movie-list">
-      <div v-for="movie in movies" :key="movie.id" class="movie-card" @click="openMovie(movie.id)">
-        <img
-          :src="`http://image.tmdb.org/t/p/original/${movie.poster_path}`"
-          :alt="movie.title"
-        />
-
-      </div>
-    </div>
         
 </template>
 
@@ -73,107 +66,5 @@ onMounted((async) => {
 
 @import "../assets/Sass/_homepage.scss";
 
-.carousel {
-  position: relative;
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
-}
 
-.carousel-wrapper {
-  width: 100%;
-}
-
-.carousel-track {
-  display: flex;
-  width: 100%;
-}
-
-.carousel-item {
-  min-width: 100%;
-  text-align: center;
-  position: relative;
-}
-
-.movie-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  text-align: start;
-}
-
-.carousel-item p {
-  bottom: 90px;
-  font-size: 3em;
-  font-weight: 600;
-}
-
-.carousel-item .overview {
-  bottom: 50px;
-  font-size: 1.1em;
-  width: 50vw;
-  font-weight: 400;
-  color: white;
-  padding: 5px;
-  text-align: start;
-}
-
-.carousel-item .movie-release-date {
-  bottom: 0;
-  right: 0;
-  font-size: 1.5em;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 5px;
-}
-
-.control {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px 15px;
-  font-size: 1.5rem;
-  z-index: 10;
-}
-
-.control.prev {
-  left: 0;
-}
-
-.control.next {
-  right: 0;
-}
-
-.movie-title {
-  margin-top: 10px;
-  font-size: 1.2rem;
-}
-
-img {
-  width: 100%;
-  height: 60vh;
-  object-fit: cover;
-}
-.pelicula {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 50%; /* Alinha verticalmente no meio */
-  left: 50%; /* Alinha horizontalmente no meio */
-  transform: translate(-50%, -50%); /* Centraliza perfeitamente */
-  background: rgba(0, 0, 0, 0.5); /* Cor semitransparente */
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #000; /* Cor do texto */
-  font-weight: bold;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar a película */
-}
 </style>

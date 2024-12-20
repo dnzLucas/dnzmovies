@@ -60,6 +60,28 @@ onMounted(async () => {
         <div class="first-side">
           <h3 class="details-text">Sinopse</h3>
           <p class="movie-overview">{{ tvStore.currentTv.overview }}</p>
+          <!-- Exibição dos trailers incorporados -->
+          <div class="trailers" v-if="trailers.length > 0">
+            <h3>Trailers disponíveis:</h3>
+            <div class="trailer-list">
+              <div
+                v-for="trailer in trailers"
+                :key="trailer.id"
+                class="trailer-item"
+              >
+                <p>{{ trailer.name }}</p>
+                <iframe
+                  :src="`https://www.youtube.com/embed/${trailer.key}`"
+                  width="560"
+                  height="315"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+          <p v-else>Nenhum trailer disponível para este filme.</p>
         </div>
         <div class="second-side">
           <h3 class="details-text">Detalhes</h3>
@@ -78,29 +100,6 @@ onMounted(async () => {
           <p>Avaliação: {{ tvStore.currentTv.vote_average }}</p>
         </div>
       </div>
-
-      <!-- Exibição dos trailers incorporados -->
-      <div class="trailers" v-if="trailers.length > 0">
-        <h3>Trailers disponíveis:</h3>
-        <div class="trailer-list">
-          <div
-            v-for="trailer in trailers"
-            :key="trailer.id"
-            class="trailer-item"
-          >
-            <p>{{ trailer.name }}</p>
-            <iframe
-              :src="`https://www.youtube.com/embed/${trailer.key}`"
-              width="560"
-              height="315"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-      </div>
-      <p v-else>Nenhum trailer disponível para este filme.</p>
     </div>
   </div>
 </template>
@@ -127,7 +126,6 @@ onMounted(async () => {
 
 iframe {
   width: 100%;
-  max-width: 560px;
-  height: 315px;
+
 }
 </style>

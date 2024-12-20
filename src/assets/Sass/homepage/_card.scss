@@ -1,0 +1,47 @@
+.cards-area{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3vh;
+    .card{
+        width: 20vw;
+        height: 12vw;
+        border: 1px solid #6A1B9A;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        color: #6A1B9A;
+        font-size: 2vw;
+        transition: 0.2s ease-in-out ;
+
+
+        &:hover{
+            border: 3px solid #6A1B9A;
+            transition: 0.2s ease-in-out ;
+            font-size: 2.1vw;
+            width: 20.5vw;
+            height: 12.5vw;
+        }
+    }
+    .link{
+        text-decoration: none;
+        color: #6A1B9A;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h1{
+        font-size: 4em;
+    }
+
+    .card{
+        width: 40vw;
+        height: 30vw;
+        font-size: 3em;
+    }
+
+
+}
