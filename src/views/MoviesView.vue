@@ -58,16 +58,17 @@ function openMovie(movieId) {
   <div class="container">
     <div>
       <h1>Gêneros de filmes</h1>
-      <ul class="genre-list">
-        <li
+      <select class="genre-list" >
+        <option value="" selected disabled hidden>Escolha o gênero</option>
+        <option
           v-for="genre in genreStore.genres"
           :key="genre.id"
           @click="listMovies(genre.id)"
           class="genre-item"
         >
           {{ genre.name }}
-        </li>
-      </ul>
+        </option>
+      </select>
       <loading
         v-model:active="isLoading"
         is-full-page

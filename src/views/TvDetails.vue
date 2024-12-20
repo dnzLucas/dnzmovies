@@ -1,13 +1,13 @@
 <script setup>
 import { defineProps, onMounted, ref } from "vue";
-import { useMovieStore } from "@/stores/movie";
+import { useTvStore } from "@/stores/tv";
 import api from "@/plugins/axios";
 
-const movieStore = useMovieStore();
+const tvStore = useTvStore();
 
-// Declaração da prop para o `movieId`
+// Declaração da prop para o `tvId`
 const props = defineProps({
-  movieId: {
+  tvId: {
     type: Number,
     required: true,
   },
@@ -17,8 +17,8 @@ const props = defineProps({
 const trailers = ref([]);
 
 // Função para buscar os trailers do filme
-const fetchTrailers = async (movieId) => {
-  const response = await api.get(`movie/${movieId}/videos`, {
+const fetchTrailers = async (tvId) => {
+  const response = await api.get(`tv/${tvId}/videos`, {
     params: {
       language: "pt-BR",
     },
@@ -32,8 +32,8 @@ const fetchTrailers = async (movieId) => {
 
 // Carregar os detalhes do filme e os trailers quando o componente for montado
 onMounted(async () => {
-  await movieStore.getMovieDetail(props.movieId);
-  await fetchTrailers(props.movieId);
+  await tvStore.getTvDetail(props.tvId);
+  await fetchTrailers(props.tvId); // Chama a função para buscar trailers
 });
 </script>
 
@@ -41,17 +41,17 @@ onMounted(async () => {
   <div class="main">
     <div class="content">
       <div class="basic-info">
-        <h1 class="title">{{ movieStore.currentMovie.title }}</h1>
+        <h1 class="title">{{ tvStore.currentTv.name }}</h1>
 
         <img
-          :src="`https://image.tmdb.org/t/p/original${movieStore.currentMovie.backdrop_path}`"
-          :alt="movieStore.currentMovie.title"
+          :src="`https://image.tmdb.org/t/p/original${tvStore.currentTv.backdrop_path}`"
+          :alt="tvStore.currentTv.title"
           class="movie-backdrop"
         />
 
         <img
-          :src="`https://image.tmdb.org/t/p/original${movieStore.currentMovie.poster_path}`"
-          :alt="movieStore.currentMovie.title"
+          :src="`https://image.tmdb.org/t/p/original${tvStore.currentTv.poster_path}`"
+          :alt="tvStore.currentTv.title"
           class="movie-poster"
         />
       </div>
@@ -59,20 +59,23 @@ onMounted(async () => {
       <div class="details">
         <div class="first-side">
           <h3 class="details-text">Sinopse</h3>
-          <p class="movie-overview">{{ movieStore.currentMovie.overview }}</p>
-
+          <p class="movie-overview">{{ tvStore.currentTv.overview }}</p>
         </div>
         <div class="second-side">
           <h3 class="details-text">Detalhes</h3>
-          <p>Data de lançamento: <span> {{ movieStore.currentMovie.release_date }}</span> </p>
-          <p>Duração: {{ movieStore.currentMovie.runtime }} minutos</p>
-          <p>Idioma original: {{ movieStore.currentMovie.original_language }}</p>
-          <p>Popularidade: {{ movieStore.currentMovie.popularity }}</p>
-          <p>Receita: ${{ movieStore.currentMovie.revenue }}</p>
-          <p entMovie.budget >
-            Orçamento: ${{ movieStore.currentMovie.budget }}
+          <p>
+            Data de lançamento:
+            <span> {{ tvStore.currentTv.first_air_date }}</span>
           </p>
-          <p>Avaliação: {{ movieStore.currentMovie.vote_average }}</p>
+          <p>
+            Duração:
+            {{ tvStore.currentTv.episode_run_time?.[0] || "N/A" }} minutos
+          </p>
+          <p>Idioma original: {{ tvStore.currentTv.original_language }}</p>
+          <p>Popularidade: {{ tvStore.currentTv.popularity }}</p>
+          <p>Receita: ${{ tvStore.currentTv.revenue }}</p>
+          <p entMovie.budget>Orçamento: ${{ tvStore.currentTv.budget }}</p>
+          <p>Avaliação: {{ tvStore.currentTv.vote_average }}</p>
         </div>
       </div>
 
@@ -80,7 +83,11 @@ onMounted(async () => {
       <div class="trailers" v-if="trailers.length > 0">
         <h3>Trailers disponíveis:</h3>
         <div class="trailer-list">
-          <div v-for="trailer in trailers" :key="trailer.id" class="trailer-item">
+          <div
+            v-for="trailer in trailers"
+            :key="trailer.id"
+            class="trailer-item"
+          >
             <p>{{ trailer.name }}</p>
             <iframe
               :src="`https://www.youtube.com/embed/${trailer.key}`"

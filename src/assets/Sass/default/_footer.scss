@@ -1,0 +1,36 @@
+.container{
+    height: 30vh;
+    background-color: #2b0742;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    a{
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: #6A1B9A;
+            text-decoration: underline 3px;
+        }
+    }
+
+    .important-links{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        margin: 2rem 0;
+
+        *:hover{
+            color: #6A1B9A;
+            text-decoration: none;
+        }
+    }
+}

@@ -2,7 +2,9 @@
 import { ref, onMounted } from "vue";
 import api from "@/plugins/axios";
 import Loading from 'vue-loading-overlay';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
 
 // function getGenreName(id) {
@@ -28,6 +30,11 @@ const listPrograms = async (genreId) => {
 
 const genres = ref([]);
 
+function openTv(tvId) {
+  router.push({ name: 'TvDetails', params: { tvId } });
+}
+
+
 onMounted(async () => {
   const response = await api.get("genre/tv/list?language=pt-BR");
   genres.value = response.data.genres;
@@ -35,23 +42,25 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <h1>Gêneros de programas de TV</h1>
-    <ul class="genre-list">
-      <li
+  <div class="container">
+    <div>
+      <h1>Gêneros de programas de TV</h1>
+    <select class="genre-list">
+      <option value="" selected disabled hidden>Escolha o gênero</option>
+      <option
         v-for="genre in genres"
         :key="genre.id"
         @click="listPrograms(genre.id)"
       >
         {{ genre.name }}
-      </li>
-    </ul>
+      </option>
+    </select>
     <loading v-model:active="isLoading" is-full-page loader="dots" color="white" background-color="black" />
+    </div>
 
-  </div>
 
   <div class="program-list">
-    <div v-for="program in programs" :key="program.id" class="program-card" >
+    <div @click="openTv(program.id)" v-for="program in programs" :key="program.id" class="program-card" >
       <img class="program-img"
       :src="`https://image.tmdb.org/t/p/w500${program.poster_path}`"
       :alt="program.title"
@@ -72,6 +81,8 @@ onMounted(async () => {
     
     </div>
   </div>
+</div>
+
 </template>
 
 <style scoped>
